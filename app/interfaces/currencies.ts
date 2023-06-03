@@ -10,10 +10,6 @@ interface Curreny {
 
 }
 
-interface Symbol {
-
-}
-
 export interface Currencies {
     data:{
         [currencycode:string]:Curreny
