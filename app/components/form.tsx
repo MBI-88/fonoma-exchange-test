@@ -17,6 +17,11 @@ const Form: FC<Props> = ({ data }) => {
         event.preventDefault()
         const result = await GetExachange(select.from, select.to)
         const rate = result.data[select.to]
+        if (rate == -1) {
+            setState(state)
+            alert("Request range exceeded")
+            return
+        }
         const exchanged = input.currency * rate
         setState({ ...state, rate, exchanged })
     }
