@@ -4,11 +4,11 @@ const url = process.env.BASE_URL
 const apikey = process.env.APIKEY
 
 export async function GET(req: Request) {
-    const param = new URLSearchParams(req.url)
-    const from  = param.get("from")
-    const to = param.get("to")
+    const {searchParams} = new URL(req.url)
+    const from  = searchParams.get("from")
+    const to = searchParams.get("to")
     const query = `${url}latest?apikey=${apikey}&currencies=${to}&base_currency=${from}`
-    const result = await fetch(query)
+    const result = await fetch(query, { next: { revalidate: 18000 } })
     const data = await result.json()
     return NextResponse.json(data)
 
